@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Jelentkezés</title>
+</head>
+<script>
+  const clearAllDatesFromSelection = () => document.querySelectorAll('tr').forEach(t => t.classList.remove('bg-[#F7CF9B]', 'text-[#000]'))
+  const highlightSelectDate = e => e.classList.add('bg-[#F7CF9B]', 'text-[#000]')
+  const showSelectedDate = e => document.querySelector('#selected-time').textContent = e.textContent
+  const setHidedInputValue = e => document.querySelector('#date').value = e.textContent.replace(/\s{2,}/g, ' ')
+  const clearInfo = () => document.querySelector('#info').textContent = ''
+  
+  const selectDate = e => {
+    clearAllDatesFromSelection()
+    highlightSelectDate(e)
+    showSelectedDate(e)
+    setHidedInputValue(e)
+    clearInfo()
+  }
+
+  const validateEmail = email => {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(form.email.value)) {
+      return true
+    } else {
+      alert("Érvénytelen email cím")
+      return false
+    }
+  }
+
+  const isDateSelected = () => {
+    if (document.querySelector('#selected-time').textContent) {
+      return true
+    } else {
+      alert("Válassz időpontot a táblázatból!")
+      return false
+    }
+  }
+
+</script>
+<body onload="document.form.name1.focus()">
+  <div class="container-fluid md:container mx-auto md:my-8">
+    <img class="block mx-auto" src="src/img/szabadulo_szoba_fejlec.jpg" alt="Szabadulás Egyiptomból Kép">
+    <div class="container-fluid md:container md:flex bg-[#000] text-[#fff]">
+      <div>
+        
+        <!-- Info -->
+        <div class="mx-auto py-8 px-10 lg:max-w-[65vw] md:max-w-[55vw] xl:max-w-[72vw] lg:pb-[8rem]">
+          <h1 class="text-4xl uppercase text-[#C28149] mb-4">Info</h1>
+          <p class="mb-3">Az alábbi táblázatban tudsz időpontot foglalni. Kérjük, jelezd, hogy hány fővel érkezel! Ha mégsem tudsz jönni, lemondhatod az időpontot minden kötelezettség nélkül, de kérünk, ne felejtsd el ezt megtenni!</p>
+          <p class="mb-3"><strong>Kezdés előtt kérünk, hogy 10 perccel érkezzetek meg.</strong></p>
+          <p class="mb-3">Ha nagyobb csoporttal szeretnél jönni, ami több játékidőt vesz igénybe, akár más időpontban, keress személyesen és egyeztetünk!</p>
+          <p class="mb-3"><strong>Telefonszám:</strong> +36203796222</p>
+          <!-- <p class="mb-3">>>>Táblázat foglalható időpontokkal: szerda: 18.00 19.00 szombat: 17.00 18.00 19.00 vasárnap: 16.00 17.00 18.00<<<</p> -->
+        </div>
+
+        <!-- Jelentkezes -->
+        <div class="bg-[#F7CF9B] text-[#C28149] mx-auto py-6 px-10">
+          <form name="form" action="#" method="post">
+            <h1 class="text-4xl py-2 uppercase mb-8">Jelentkezés</h1>
+            
+            <div class="mr-10">
+              <div class="w-[320px] mx-auto">
+                <div class="text-right mb-2">
+                  <label class="" for="name1">
+                    Név:*
+                  </label>
+                  <input class="md:w-[70%] my-2 mx-3 h-[2.5rem] rounded-sm text-left text-[#C28149] px-3" type="text" name="name" id="name" placeholder="Név" required>
+                </div>
+      
+                <div class="text-right mb-2">
+                  <label class="" for="tel">
+                    Tel:*
+                  </label>
+                  <input class="md:w-[70%] my-2 mx-3 h-[2.5rem] rounded-sm text-left text-[#C28149] px-3" type="tel" name="tel" id="tel" placeholder="Telefonszám" required>
+                </div>
+      
+                <div class="text-right mb-2">
+                  <label class="" for="tel">
+                    Email:*
+                  </label>
+                  <input class="md:w-[70%] my-2 mx-3 h-[2.5rem] rounded-sm text-left text-[#C28149] px-3" type="email" name="email" id="email" placeholder="Email cím" required>
+                </div>
+      
+                <input class="hidden" type="text" name="date" id="date" required>          
+      
+                <div class="h-[5rem]">
+                  <p class="text-center">Választott időpont: </p>
+                  <p class="text-center text-sm text-[#d00]" id="info">Katt a táblázatra!</p>
+                  <div class="text-center text-2xl font-bold" id="selected-time"></div>
+                </div>
+              </div>
+    
+              <div class="text-center mt-7">
+                <input class="bg-[#C28149] hover:bg-[#956338] text-[#F7CF9B] pb-3 pt-2 px-5 rounded-md font-bold mx-auto transition-all duration-300 cursor-pointer" type="submit" value="Időpont foglalása" onclick="validateEmail(document.form.email);isDateSelected()">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Idopontok -->
+      <div class="bg-[#C28149] px-10 pt-8 py-5 w-[100%]">
+        <h1 class="text-4xl uppercase text-[#fff] mb-4">Időpontok</h1>
+          <table class="block text-[#fff] w-[290px] mx-auto mt-10 ">
+            <thead>
+              <tr class="text-left text-lg border-b border-[#fff]">
+                <th class="w-3/4">Dátum:</th>
+                <th>Időpont:</th>
+              </tr>
+            </thead>
+            <tbody class="text-lg">
+              <tr class="mb-2 cursor-pointer hover:bg-[#F7CF9B] hover:text-[#000] transition-all duration-150" onclick="selectDate(this)">
+                <td class="pl-3 py-1">2022.10.05</td>
+                <td class="pr-3 text-right">17:00</td>                
+              </tr>
+              <tr class="mb-2 cursor-pointer hover:bg-[#F7CF9B] hover:text-[#000] transition-all duration-150" onclick="selectDate(this)">
+                <td class="pl-3 py-1">2022.10.05</td>
+                <td class="pr-3 text-right">18:00</td>
+              </tr>
+              <tr class="mb-2 cursor-pointer hover:bg-[#F7CF9B] hover:text-[#000] transition-all duration-150" onclick="selectDate(this)">
+                <td class="pl-3 py-1">2022.10.05</td>
+                <td class="pr-3 text-right">19:00</td>
+              </tr>
+              <tr class="mb-2 cursor-pointer hover:bg-[#F7CF9B] hover:text-[#000] transition-all duration-150" onclick="selectDate(this)">
+                <td class="pl-3 py-1">2022.10.06</td>
+                <td class="pr-3 text-right">17:00</td>
+              </tr>
+              <tr class="mb-2 cursor-pointer hover:bg-[#F7CF9B] hover:text-[#000] transition-all duration-150" onclick="selectDate(this)">
+                <td class="pl-3 py-1">2022.10.06</td>
+                <td class="pr-3 text-right">18:00</td>
+              </tr>
+              <tr class="mb-2 cursor-pointer hover:bg-[#F7CF9B] hover:text-[#000] transition-all duration-150" onclick="selectDate(this)">
+                <td class="pl-3 py-1">2022.10.06</td>
+                <td class="pr-3 text-right">19:00</td>
+              </tr>
+              <tr class="mb-2 cursor-pointer hover:bg-[#F7CF9B] hover:text-[#000] transition-all duration-150" onclick="selectDate(this)">
+                <td class="pl-3 py-1">2022.10.07</td>
+                <td class="pr-3 text-right">17:00</td>
+              </tr>
+              <tr class="mb-2 cursor-pointer hover:bg-[#F7CF9B] hover:text-[#000] transition-all duration-150" onclick="selectDate(this)">
+                <td class="pl-3 py-1">2022.10.07</td>
+                <td class="pr-3 text-right">18:00</td>
+              </tr>
+              <tr class="mb-2 cursor-pointer hover:bg-[#F7CF9B] hover:text-[#000] transition-all duration-150" onclick="selectDate(this)">
+                <td class="pl-3 py-1">2022.10.07</td>
+                <td class="pr-3 text-right">19:00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
